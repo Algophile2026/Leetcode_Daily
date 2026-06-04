@@ -1,0 +1,71 @@
+Approach 01 : convert into string
+========================================================
+
+class Solution {
+public:
+    int totalWaviness(int num1, int num2) {
+  // convert into string 
+  int waviness = 0;
+  for( int i= num1;i<=num2;i++){
+    string s = to_string(i);
+    for( int i =1;i<s.size()-1;i++){
+        if(( s[i-1] < s[i] && s[i] > s[i+1] ) || (s[i-1] > s[i] && s[i]< s[i+1])){
+           waviness++; 
+        }
+    }
+    
+  }
+return waviness;
+       
+    }
+};
+
+time complexity : O(n *d)
+space complexity : 0(1)
+
+
+
+===========================================================================================
+
+Approach 02 : convert number into arrays
+
+class Solution {
+public:
+
+    int solve(int n) {
+
+        vector<int> temp;
+
+        while(n > 0) {
+            int digit = n % 10;
+            temp.push_back(digit);
+            n /= 10;
+        }
+
+        int waviness = 0;
+
+        for(int i = 1; i < temp.size() - 1; i++) {
+            if((temp[i] > temp[i-1] && temp[i] > temp[i+1]) ||
+               (temp[i] < temp[i-1] && temp[i] < temp[i+1])) {
+                waviness++;
+            }
+        }
+
+        return waviness;
+    }
+
+    int totalWaviness(int num1, int num2) {
+
+        int ans = 0;
+
+        for(int i = num1; i <= num2; i++) {
+            ans += solve(i);
+        }
+
+        return ans;
+    }
+};
+
+
+time complexity : o(n * d)
+space complexity : O(1)
